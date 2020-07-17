@@ -21,3 +21,7 @@
 ## [0.0.6] - Initial works.
 
 * Initial works.
+
+## [0.0.7] - Initial works.
+
+* Initial works.
