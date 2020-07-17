@@ -18,8 +18,7 @@ class DynamicTextHighlighting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (text.isEmpty || highlightText.isEmpty)
-      return Text(text, style: style);
+    if (text.isEmpty || highlightText.isEmpty) return Text(text, style: style);
 
     List<TextSpan> _spans = [];
     int _start = 0;
@@ -48,8 +47,7 @@ class DynamicTextHighlighting extends StatelessWidget {
 
   TextSpan _highlightSpan(String content) {
     return TextSpan(
-        text: content,
-        style: style.copyWith(backgroundColor: highlightColor));
+        text: content, style: style.copyWith(backgroundColor: highlightColor));
   }
 
   TextSpan _normalSpan(String content) {
