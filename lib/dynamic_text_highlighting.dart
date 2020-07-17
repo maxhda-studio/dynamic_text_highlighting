@@ -6,20 +6,20 @@ class DynamicTextHighlighting extends StatelessWidget {
   final String text;
   final String highlightText;
   final Color highlightColor;
-  final TextStyle textStyle;
+  final TextStyle style;
 
   DynamicTextHighlighting({
     Key key,
     this.text = '',
     this.highlightText = '',
     this.highlightColor = Colors.yellow,
-    this.textStyle = const TextStyle(),
+    this.style = const TextStyle(),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (text.isEmpty || highlightText.isEmpty)
-      return Text(text, style: textStyle);
+      return Text(text, style: style);
 
     List<TextSpan> _spans = [];
     int _start = 0;
@@ -49,10 +49,10 @@ class DynamicTextHighlighting extends StatelessWidget {
   TextSpan _highlightSpan(String content) {
     return TextSpan(
         text: content,
-        style: textStyle.copyWith(backgroundColor: highlightColor));
+        style: style.copyWith(backgroundColor: highlightColor));
   }
 
   TextSpan _normalSpan(String content) {
-    return TextSpan(text: content, style: textStyle);
+    return TextSpan(text: content, style: style);
   }
 }
