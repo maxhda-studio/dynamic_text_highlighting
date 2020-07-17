@@ -47,7 +47,9 @@ class DynamicTextHighlighting extends StatelessWidget {
   }
 
   TextSpan _highlightSpan(String content) {
-    return TextSpan(text: content, style: textStyle.copyWith(backgroundColor: highlightColor));
+    return TextSpan(
+        text: content,
+        style: textStyle.copyWith(backgroundColor: highlightColor));
   }
 
   TextSpan _normalSpan(String content) {

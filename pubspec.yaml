@@ -1,6 +1,6 @@
 name: dynamic_text_highlighting
 description: Dynamic text highlighting.
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/daniel-maxhari/dynamic_text_highlighting.git
 
 environment:
