@@ -3,7 +3,7 @@
 This package is used to highlight, in a completely dynamic way, 
 a keyword, or a phrase, wherever it is present in a specified text.
 
-<img src="/assets/demo.gif" width="250" height="250"/>
+<img src="/assets/demo.gif" width="249" height="315"/>
 
 ## Getting Started
 
