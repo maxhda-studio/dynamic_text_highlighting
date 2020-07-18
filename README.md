@@ -3,6 +3,8 @@
 This package is used to highlight, in a completely dynamic way, 
 a keyword, or a phrase, wherever it is present in a specified text.
 
+![demo](assets/demo.gif)
+
 ## Getting Started
 
 DynamicTextHighlighting is also the name of the package widget. 
