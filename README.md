@@ -1,10 +1,18 @@
 # Dynamic Text Highlighting (DTH)
 
-TODO: Description
+This package is used to highlight, in a completely dynamic way, 
+a keyword, or a phrase, wherever it is present in a specified text.
 
 ## Getting Started
 
-Coming soon, package still under development.
+DynamicTextHighlighting is also the name of the package widget. 
+It returns a RichText widget, or a Text widget if there is nothing 
+highlighted. It accepts four parameters:
+
+* `text`: this is the whole text.
+* `highlightText`: this is only the highlighted text.
+* `highlightColor`: nothing to say.
+* `style`: this is the default text style.
 
 ### Example
 
@@ -22,4 +30,13 @@ Widget buildDTH(String text, String highlightText) {
 }
 ```
 
+It is a stateless widget, so for any changes
+just call `setState(() {...})`.
 
+```dart
+void applyChanges(String newHighlightText) {
+  setState(() {
+    highlightText = newHighlightText;
+  });
+}
+```
