@@ -1,3 +1,15 @@
+## [1.0.0] - Stable.
+
+* Stable.
+
+## [0.0.33] - Initial works.
+
+* Initial works.
+
+## [0.0.32] - Initial works.
+
+* Initial works.
+
 ## [0.0.31] - Initial works.
 
 * Initial works.
