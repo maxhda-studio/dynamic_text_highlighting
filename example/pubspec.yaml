@@ -1,0 +1,17 @@
+name: example
+description: example
+version: 1.0.0
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dynamic_text_highlighting: ^0.0.28
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
