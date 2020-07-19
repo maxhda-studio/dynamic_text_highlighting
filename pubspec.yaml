@@ -1,8 +1,10 @@
 name: dynamic_text_highlighting
 description: Dynamic Text Highlighting (DTH) is a Flutter package written in pure Dart,
   ideal for highlighting search results.
-version: 0.0.29
+version: 0.0.31
 homepage: https://github.com/daniel-maxhari/dynamic_text_highlighting.git
+repository: https://github.com/daniel-maxhari/dynamic_text_highlighting.git
+issue_tracker: https://github.com/daniel-maxhari/dynamic_text_highlighting/issues
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
