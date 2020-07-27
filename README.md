@@ -1,7 +1,7 @@
 # Dynamic Text Highlighting (DTH)
 
 This package is used to highlight, in a completely dynamic way, 
-a keyword, or a phrase, wherever it is present in a specified text.
+keywords, or phrases, wherever they are present in a specified text.
 
 ![demo](assets/demo.gif)
 
