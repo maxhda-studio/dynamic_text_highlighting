@@ -1,63 +1,167 @@
 library dynamic_text_highlighting;
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class DynamicTextHighlighting extends StatelessWidget {
+  //DynamicTextHighlighting
   final String text;
-  final String highlightText;
-  final Color highlightColor;
+  final List<String> highlights;
+  final Color color;
   final TextStyle style;
 
+  //RichText
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  final bool softWrap;
+  final TextOverflow overflow;
+  final double textScaleFactor;
+  final int maxLines;
+  final Locale locale;
+  final StrutStyle strutStyle;
+  final TextWidthBasis textWidthBasis;
+  final TextHeightBehavior textHeightBehavior;
+
   DynamicTextHighlighting({
+    //DynamicTextHighlighting
     Key key,
-    this.text = '',
-    this.highlightText = '',
-    this.highlightColor = Colors.yellow,
-    this.style = const TextStyle(),
-  }) : super(key: key);
+    this.text,
+    this.highlights,
+    this.color = Colors.yellow,
+    this.style = const TextStyle(
+      color: Colors.black,
+    ),
+
+    //RichText
+    this.textAlign = TextAlign.start,
+    this.textDirection,
+    this.softWrap = true,
+    this.overflow = TextOverflow.clip,
+    this.textScaleFactor = 1.0,
+    this.maxLines,
+    this.locale,
+    this.strutStyle,
+    this.textWidthBasis = TextWidthBasis.parent,
+    this.textHeightBehavior,
+  })  : assert(text != null),
+        assert(highlights != null),
+        assert(color != null),
+        assert(style != null),
+        assert(textAlign != null),
+        assert(softWrap != null),
+        assert(overflow != null),
+        assert(textScaleFactor != null),
+        assert(maxLines == null || maxLines > 0),
+        assert(textWidthBasis != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //If the text or the highlight text are empty, then return normal text.
-    if (text.isEmpty || highlightText.isEmpty) return Text(text, style: style);
-
-    List<TextSpan> _spans = [];
-    int _start = 0;
-    int _indexOfHighlight;
-
-    while (true) {
-      _indexOfHighlight = text.indexOf(highlightText, _start);
-
-      if (_indexOfHighlight < 0) {
-        //Nothing to be highlighted.
-        _spans.add(_normalSpan(text.substring(_start, text.length)));
-        break;
+    //Controls
+    if (text == '') {
+      return _richText(_normalSpan(text));
+    }
+    if (highlights.isEmpty) {
+      return _richText(_normalSpan(text));
+    }
+    for (int i = 0; i < highlights.length; i++) {
+      if (highlights[i] == null) {
+        assert(highlights[i] != null);
+        return _richText(_normalSpan(text));
       }
-
-      if (_indexOfHighlight == _start) {
-        //The text starts with highlighting.
-        _spans.add(_highlightSpan(highlightText));
-        _start += highlightText.length;
-      } else {
-        //Normal text and highlighted text.
-        _spans.add(_normalSpan(text.substring(_start, _indexOfHighlight)));
-        _spans.add(_highlightSpan(highlightText));
-        _start = _indexOfHighlight + highlightText.length;
+      if (highlights[i].isEmpty) {
+        assert(highlights[i].isNotEmpty);
+        return _richText(_normalSpan(text));
       }
     }
 
-    //The returned value is a rich text widget with all the highlights.
-    return Text.rich(TextSpan(children: _spans));
+    //Main code
+    List<TextSpan> _spans = List();
+    int _start = 0;
+
+    while (true) {
+      Map<int, String> _highlightsMap = Map(); //key (index), value (highlight).
+
+      for (int i = 0; i < highlights.length; i++) {
+        int _index = text.indexOf(highlights[i], _start);
+        if (_index >= 0) {
+          _highlightsMap.putIfAbsent(_index, () => highlights[i]);
+        }
+      }
+
+      if (_highlightsMap.isNotEmpty) {
+        List<int> _indexes = List();
+        _highlightsMap.forEach((key, value) => _indexes.add(key));
+
+        int _currentIndex = _indexes.reduce(min);
+        String _currentHighlight = _highlightsMap[_currentIndex];
+
+        if (_currentIndex == _start) {
+          _spans.add(_highlightSpan(_currentHighlight));
+          _start += _currentHighlight.length;
+        } else {
+          _spans.add(_normalSpan(text.substring(_start, _currentIndex)));
+          _spans.add(_highlightSpan(_currentHighlight));
+          _start = _currentIndex + _currentHighlight.length;
+        }
+      } else {
+        _spans.add(_normalSpan(text.substring(_start, text.length)));
+        break;
+      }
+    }
+
+    return _richText(TextSpan(children: _spans));
   }
 
-  //Method used to create a new highlight text span.
-  TextSpan _highlightSpan(String content) {
-    return TextSpan(
-        text: content, style: style.copyWith(backgroundColor: highlightColor));
+  TextSpan _highlightSpan(String value) {
+    if (style.color == null) {
+      return TextSpan(
+        text: value,
+        style: style.copyWith(
+          color: Colors.black,
+          backgroundColor: color,
+        ),
+      );
+    } else {
+      return TextSpan(
+        text: value,
+        style: style.copyWith(
+          backgroundColor: color,
+        ),
+      );
+    }
   }
 
-  //Method used to create a new normal text span.
-  TextSpan _normalSpan(String content) {
-    return TextSpan(text: content, style: style);
+  TextSpan _normalSpan(String value) {
+    if (style.color == null) {
+      return TextSpan(
+        text: value,
+        style: style.copyWith(
+          color: Colors.black,
+        ),
+      );
+    } else {
+      return TextSpan(
+        text: value,
+        style: style,
+      );
+    }
+  }
+
+  RichText _richText(TextSpan text) {
+    return RichText(
+      key: key,
+      text: text,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      locale: locale,
+      strutStyle: strutStyle,
+      textWidthBasis: textWidthBasis,
+      textHeightBehavior: textHeightBehavior,
+    );
   }
 }

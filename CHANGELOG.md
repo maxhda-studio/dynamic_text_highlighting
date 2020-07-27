@@ -1,3 +1,18 @@
+## [2.0.0] - Multiple word highlighting support and RichText parameters.
+
+* Multiple word highlighting support
+* RichText parameters
+  * `TextAlign` textAlign
+  * `TextDirection` textDirection
+  * `bool` softWrap
+  * `TextOverflow` overflow
+  * `double` textScaleFactor
+  * `int` maxLines
+  * `Locale` locale
+  * `StrutStyle` strutStyle
+  * `TextWidthBasis` textWidthBasis
+  * `TextHeightBehavior` textHeightBehavior
+
 ## [1.0.0] - Stable.
 
 * Stable.

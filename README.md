@@ -8,25 +8,38 @@ a keyword, or a phrase, wherever it is present in a specified text.
 ## Getting Started
 
 DynamicTextHighlighting is also the name of the package widget. 
-It returns a RichText widget, or a Text widget if there is nothing 
-highlighted. It accepts four parameters:
+It returns a RichText widget and it accepts four basic parameters:
 
-* `text`: this is the whole text.
-* `highlightText`: this is only the highlighted text.
-* `highlightColor`: nothing to say.
-* `style`: this is the default text style.
+* `text`: the whole text
+* `highlights`: the words to be highlight
+* `color`: the highlight color
+* `style`: the default text style
+
+In addition to these parameters, there are others related to
+RichText widget:
+
+* `TextAlign` textAlign
+* `TextDirection` textDirection
+* `bool` softWrap
+* `TextOverflow` overflow
+* `double` textScaleFactor
+* `int` maxLines
+* `Locale` locale
+* `StrutStyle` strutStyle
+* `TextWidthBasis` textWidthBasis
+* `TextHeightBehavior` textHeightBehavior
 
 ### Example
 
 ```dart
-Widget buildDTH(String text, String highlightText) {
+Widget buildDTH(String text, List<String> highlights) {
   return DynamicTextHighlighting(
     text: text,
-    highlightText: highlightText,
-    highlightColor: Colors.yellow,
+    highlights: highlights,
+    color: Colors.yellow,
     style: TextStyle(
       fontSize: 18.0,
-      fontWeight: FontWeight.bold,
+      fontStyle: FontStyle.italic,
     ),
   );
 }
@@ -36,9 +49,9 @@ It is a stateless widget, so for any changes
 just call `setState(() {...})`.
 
 ```dart
-void applyChanges(String newHighlightText) {
+void applyChanges(List<String> newHighlights) {
   setState(() {
-    highlightText = newHighlightText;
+    highlights = newHighlights;
   });
 }
 ```
