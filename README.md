@@ -11,7 +11,7 @@ DynamicTextHighlighting is also the name of the package widget.
 It returns a RichText widget and it accepts four basic parameters:
 
 * `text`: the whole text
-* `highlights`: the words to be highlight
+* `highlights`: the words to be highlighted
 * `color`: the highlight color
 * `style`: the default text style
 

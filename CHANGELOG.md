@@ -1,4 +1,4 @@
-## [2.0.0] - Multiple word highlighting support and RichText parameters.
+## [2.0.1] - Multiple word highlighting support and RichText parameters.
 
 * Multiple word highlighting support
 * RichText parameters
@@ -12,6 +12,11 @@
   * `StrutStyle` strutStyle
   * `TextWidthBasis` textWidthBasis
   * `TextHeightBehavior` textHeightBehavior
+  
+## [2.0.0] - New features.
+
+* Multiple word highlighting support
+* RichText parameters
 
 ## [1.0.0] - Stable.
 
