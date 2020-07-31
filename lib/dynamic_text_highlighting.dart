@@ -9,6 +9,7 @@ class DynamicTextHighlighting extends StatelessWidget {
   final List<String> highlights;
   final Color color;
   final TextStyle style;
+  final bool caseSensitive;
 
   //RichText
   final TextAlign textAlign;
@@ -31,6 +32,7 @@ class DynamicTextHighlighting extends StatelessWidget {
     this.style = const TextStyle(
       color: Colors.black,
     ),
+    this.caseSensitive = true,
 
     //RichText
     this.textAlign = TextAlign.start,
@@ -47,6 +49,7 @@ class DynamicTextHighlighting extends StatelessWidget {
         assert(highlights != null),
         assert(color != null),
         assert(style != null),
+        assert(caseSensitive != null),
         assert(textAlign != null),
         assert(softWrap != null),
         assert(overflow != null),
@@ -79,13 +82,30 @@ class DynamicTextHighlighting extends StatelessWidget {
     List<TextSpan> _spans = List();
     int _start = 0;
 
+    //For "No Case Sensitive" option
+    String _lowerCaseText = text.toLowerCase();
+    List<String> _lowerCaseHighlights = List();
+
+    highlights.forEach((element) {
+      _lowerCaseHighlights.add(element.toLowerCase());
+    });
+
     while (true) {
       Map<int, String> _highlightsMap = Map(); //key (index), value (highlight).
 
-      for (int i = 0; i < highlights.length; i++) {
-        int _index = text.indexOf(highlights[i], _start);
-        if (_index >= 0) {
-          _highlightsMap.putIfAbsent(_index, () => highlights[i]);
+      if (caseSensitive) {
+        for (int i = 0; i < highlights.length; i++) {
+          int _index = text.indexOf(highlights[i], _start);
+          if (_index >= 0) {
+            _highlightsMap.putIfAbsent(_index, () => highlights[i]);
+          }
+        }
+      } else {
+        for (int i = 0; i < highlights.length; i++) {
+          int _index = _lowerCaseText.indexOf(_lowerCaseHighlights[i], _start);
+          if (_index >= 0) {
+            _highlightsMap.putIfAbsent(_index, () => highlights[i]);
+          }
         }
       }
 
@@ -94,7 +114,8 @@ class DynamicTextHighlighting extends StatelessWidget {
         _highlightsMap.forEach((key, value) => _indexes.add(key));
 
         int _currentIndex = _indexes.reduce(min);
-        String _currentHighlight = _highlightsMap[_currentIndex];
+        String _currentHighlight = text.substring(_currentIndex,
+            _currentIndex + _highlightsMap[_currentIndex].length);
 
         if (_currentIndex == _start) {
           _spans.add(_highlightSpan(_currentHighlight));

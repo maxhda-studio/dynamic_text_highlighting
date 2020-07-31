@@ -14,6 +14,7 @@ It returns a RichText widget and it accepts four basic parameters:
 * `highlights`: the words to be highlighted
 * `color`: the highlight color
 * `style`: the default text style
+* `caseSensitive`: the case sensitive option
 
 In addition to these parameters, there are others related to
 RichText widget:
@@ -41,6 +42,7 @@ Widget buildDTH(String text, List<String> highlights) {
       fontSize: 18.0,
       fontStyle: FontStyle.italic,
     ),
+    caseSensitive: false,
   );
 }
 ```

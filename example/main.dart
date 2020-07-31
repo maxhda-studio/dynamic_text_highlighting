@@ -32,12 +32,13 @@ class _DTHExampleState extends State<DTHExample> {
       body: Center(
         child: DynamicTextHighlighting(
           text: 'This is a demo text, the specified texts will be highlighted.',
-          highlights: const ['demo', 'will'],
+          highlights: const ['this', 'demo', 'will'],
           color: Colors.yellow,
           style: TextStyle(
             fontSize: 18.0,
             color: Colors.black,
           ),
+          caseSensitive: false,
         ),
       ),
     );

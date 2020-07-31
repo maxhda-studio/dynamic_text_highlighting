@@ -1,3 +1,7 @@
+## [2.2.0] - Case sensitive option.
+
+* Implemented case sensitive option.
+
 ## [2.1.0] - Multiple word highlighting support and RichText parameters.
 
 * Multiple word highlighting support

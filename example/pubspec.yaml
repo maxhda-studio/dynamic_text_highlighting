@@ -8,10 +8,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dynamic_text_highlighting: ^2.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  dynamic_text_highlighting:
+    path: ../
 
 flutter:
