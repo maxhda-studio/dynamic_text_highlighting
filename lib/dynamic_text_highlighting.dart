@@ -9,6 +9,7 @@ class DynamicTextHighlighting extends StatelessWidget {
   final List<String> highlights;
   final Color color;
   final TextStyle style;
+  final TextStyle styleHighlights;
   final bool caseSensitive;
 
   //RichText
@@ -30,6 +31,9 @@ class DynamicTextHighlighting extends StatelessWidget {
     this.highlights,
     this.color = Colors.yellow,
     this.style = const TextStyle(
+      color: Colors.black,
+    ),
+    this.styleHighlights = const TextStyle(
       color: Colors.black,
     ),
     this.caseSensitive = true,
@@ -138,15 +142,14 @@ class DynamicTextHighlighting extends StatelessWidget {
     if (style.color == null) {
       return TextSpan(
         text: value,
-        style: style.copyWith(
-          color: Colors.black,
+        style: styleHighlights.copyWith(
           backgroundColor: color,
         ),
       );
     } else {
       return TextSpan(
         text: value,
-        style: style.copyWith(
+        style: styleHighlights.copyWith(
           backgroundColor: color,
         ),
       );
