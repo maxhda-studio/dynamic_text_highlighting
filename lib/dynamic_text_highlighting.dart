@@ -10,6 +10,7 @@ class DynamicTextHighlighting extends StatelessWidget {
   final Color color;
   final TextStyle style;
   final bool caseSensitive;
+  final bool accentSensitive;
 
   //RichText
   final TextAlign textAlign;
@@ -33,6 +34,7 @@ class DynamicTextHighlighting extends StatelessWidget {
       color: Colors.black,
     ),
     this.caseSensitive = true,
+    this.accentSensitive = true,
 
     //RichText
     this.textAlign = TextAlign.start,
@@ -50,6 +52,7 @@ class DynamicTextHighlighting extends StatelessWidget {
         assert(color != null),
         assert(style != null),
         assert(caseSensitive != null),
+        assert(accentSensitive != null),
         assert(textAlign != null),
         assert(softWrap != null),
         assert(overflow != null),
@@ -78,6 +81,40 @@ class DynamicTextHighlighting extends StatelessWidget {
       }
     }
 
+    // All the accents with all the variations
+    // First character of each element is the main ascii character
+    List<String> accents = [
+      'aàáâãăäåą',
+      "AÀÁÂÃĂÄÅĄ",
+      'cç',
+      'CÇ',
+      'eèéêëèěęėĕē',
+      'EÈÉÊËÈĚĘĖĔĒ',
+      'gğġģĝ',
+      'GĞĠĢĜ',
+      'iìíîïĩīĭį',
+      'IÌÍÎÏĨĪĬĮ',
+      'lĺļľŀł',
+      'LĹĻĽĿŁ',
+      'nñńņňŋ',
+      'NÑŃŅŇŊ',
+      'oōŏőòóôõö',
+      'OŌŎŐÒÓÔÕÖ',
+      'rŕŗř',
+      'RŔŖŘ',
+      'sśşš',
+      'SŚŞŠ',
+      'tţťŧ',
+      'TŢŤŦ',
+      'uùúûüũūŭůűų',
+      'UÙÚÛÜŨŪŬŮŰŲ',
+    ];
+    // Map with all accents
+    Map<String, String> accentsMap = Map.fromEntries(accents
+        .map((accents) => accents.split('').map((e) => MapEntry(e, accents[0])))
+        .toList()
+        .expand((i) => i));
+
     //Main code
     List<TextSpan> _spans = List();
     int _start = 0;
@@ -95,14 +132,16 @@ class DynamicTextHighlighting extends StatelessWidget {
 
       if (caseSensitive) {
         for (int i = 0; i < highlights.length; i++) {
-          int _index = text.indexOf(highlights[i], _start);
+          int _index = accentSensitiveText(text, accentsMap)
+              .indexOf(accentSensitiveText(highlights[i], accentsMap), _start);
           if (_index >= 0) {
             _highlightsMap.putIfAbsent(_index, () => highlights[i]);
           }
         }
       } else {
         for (int i = 0; i < highlights.length; i++) {
-          int _index = _lowerCaseText.indexOf(_lowerCaseHighlights[i], _start);
+          int _index = accentSensitiveText(_lowerCaseText, accentsMap).indexOf(
+              accentSensitiveText(_lowerCaseHighlights[i], accentsMap), _start);
           if (_index >= 0) {
             _highlightsMap.putIfAbsent(_index, () => highlights[i]);
           }
@@ -184,5 +223,18 @@ class DynamicTextHighlighting extends StatelessWidget {
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
     );
+  }
+
+  String removeAccents(String text, Map accentsMap) {
+    return text
+        .split('')
+        .map((e) => accentsMap.containsKey(e) ? accentsMap[e] : e)
+        .toList()
+        .fold('', (previousValue, element) => previousValue + element);
+  }
+
+  String accentSensitiveText(text, Map accentsMap) {
+    if (!accentSensitive) return removeAccents(text, accentsMap);
+    return text;
   }
 }
