@@ -13,21 +13,21 @@ class DynamicTextHighlighting extends StatelessWidget {
 
   //RichText
   final TextAlign textAlign;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final bool softWrap;
   final TextOverflow overflow;
   final double textScaleFactor;
-  final int maxLines;
-  final Locale locale;
-  final StrutStyle strutStyle;
+  final int? maxLines;
+  final Locale? locale;
+  final StrutStyle? strutStyle;
   final TextWidthBasis textWidthBasis;
-  final TextHeightBehavior textHeightBehavior;
+  final TextHeightBehavior? textHeightBehavior;
 
   DynamicTextHighlighting({
     //DynamicTextHighlighting
-    Key key,
-    this.text,
-    this.highlights,
+    Key? key,
+    required this.text,
+    required this.highlights,
     this.color = Colors.yellow,
     this.style = const TextStyle(
       color: Colors.black,
@@ -45,17 +45,7 @@ class DynamicTextHighlighting extends StatelessWidget {
     this.strutStyle,
     this.textWidthBasis = TextWidthBasis.parent,
     this.textHeightBehavior,
-  })  : assert(text != null),
-        assert(highlights != null),
-        assert(color != null),
-        assert(style != null),
-        assert(caseSensitive != null),
-        assert(textAlign != null),
-        assert(softWrap != null),
-        assert(overflow != null),
-        assert(textScaleFactor != null),
-        assert(maxLines == null || maxLines > 0),
-        assert(textWidthBasis != null),
+  })  : assert(maxLines == null || maxLines > 0),
         super(key: key);
 
   @override
@@ -68,10 +58,6 @@ class DynamicTextHighlighting extends StatelessWidget {
       return _richText(_normalSpan(text));
     }
     for (int i = 0; i < highlights.length; i++) {
-      if (highlights[i] == null) {
-        assert(highlights[i] != null);
-        return _richText(_normalSpan(text));
-      }
       if (highlights[i].isEmpty) {
         assert(highlights[i].isNotEmpty);
         return _richText(_normalSpan(text));
@@ -79,12 +65,12 @@ class DynamicTextHighlighting extends StatelessWidget {
     }
 
     //Main code
-    List<TextSpan> _spans = List();
+    List<TextSpan> _spans = [];
     int _start = 0;
 
     //For "No Case Sensitive" option
     String _lowerCaseText = text.toLowerCase();
-    List<String> _lowerCaseHighlights = List();
+    List<String> _lowerCaseHighlights = [];
 
     highlights.forEach((element) {
       _lowerCaseHighlights.add(element.toLowerCase());
@@ -110,12 +96,12 @@ class DynamicTextHighlighting extends StatelessWidget {
       }
 
       if (_highlightsMap.isNotEmpty) {
-        List<int> _indexes = List();
+        List<int> _indexes = [];
         _highlightsMap.forEach((key, value) => _indexes.add(key));
 
         int _currentIndex = _indexes.reduce(min);
         String _currentHighlight = text.substring(_currentIndex,
-            _currentIndex + _highlightsMap[_currentIndex].length);
+            _currentIndex + _highlightsMap[_currentIndex]!.length);
 
         if (_currentIndex == _start) {
           _spans.add(_highlightSpan(_currentHighlight));

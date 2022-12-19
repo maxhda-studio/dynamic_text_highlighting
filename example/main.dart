@@ -19,7 +19,7 @@ class DTHExampleApp extends StatelessWidget {
 }
 
 class DTHExample extends StatefulWidget {
-  DTHExample({Key key}) : super(key: key);
+  DTHExample({Key? key}) : super(key: key);
 
   @override
   _DTHExampleState createState() => _DTHExampleState();
